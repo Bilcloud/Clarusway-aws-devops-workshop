@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS CloudFormation Sample Template
+Resources:
+  WebServerInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0cebb45b34604efb8
+      InstanceType: t2.micro
+      KeyName: guile-cfdemo-kp
+      SecurityGroups:
+       - second-ssh-http
+      UserData:
+       'Fn::Base64': 
+         !Sub |
+          #!/bin/bash
+          yum update -y
+
+          # install apache
+          yum -y install httpd -y 
+            
+          # start server sudo systemctl status httpd
+          service httpd start
+          chkconfig httpd on
+          
+          #getting index.html
+          cd /var/www/html
+          sudo wget https://raw.githubusercontent.com/charliefalcon/aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/index.html  
+          sudo wget https://raw.githubusercontent.com/charliefalcon/aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
+          sudo wget https://raw.githubusercontent.com/charliefalcon/aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
+          sudo wget https://raw.githubusercontent.com/charliefalcon/aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
