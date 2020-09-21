@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  This template deploys Kittens Static Website on EC2 Linux 2 instance with Custom Security Group.
+  
+Resources:
+  ServerSecGrp:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: Enables HTTP and SSH for Apache Web Server and terminal
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80 
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22 
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+  WebServer:
+  Type: "AWS::EC2::Instance"
+  Properties:
+    ImageId: ami-0c94855ba95c71c99
+    InstanceType: t2.micro
+    KeyName: project1
+    SecurityGroupIds:
+      - !Ref ServerSecGrp
+    Tags:
+      - Key: Name
+        Value: !Sub Web Serwer of ${AWS::StackName} Stack
+    UserData:
+      Fn::Base64:
+        !Sub |
+          #! /bin/bash
+          yum update -y
+          yum instal httpd -y
+          cd /var/www/html/
+          wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/index.html
+          wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
+          wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
+          wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
+          systemctl start httpd
+          systemctl enable httpd
+Outputs:
+  KittensURL:
+    Value: !Sub
+      - http://${PublicAddress}
+      - PublicAddress: !GetAtt WebServer.PublicDnsName
+    Description: Kittens App URL
