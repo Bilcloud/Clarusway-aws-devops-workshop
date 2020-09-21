@@ -17,29 +17,29 @@ Resources:
           ToPort: 22
           CidrIp: 0.0.0.0/0
   WebServer:
-  Type: "AWS::EC2::Instance"
-  Properties:
-    ImageId: ami-0c94855ba95c71c99
-    InstanceType: t2.micro
-    KeyName: project1
-    SecurityGroupIds:
-      - !Ref ServerSecGrp
-    Tags:
-      - Key: Name
-        Value: !Sub Web Serwer of ${AWS::StackName} Stack
-    UserData:
-      Fn::Base64:
-        !Sub |
-          #! /bin/bash
-          yum update -y
-          yum instal httpd -y
-          cd /var/www/html/
-          wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/index.html
-          wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
-          wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
-          wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
-          systemctl start httpd
-          systemctl enable httpd
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: ami-0c94855ba95c71c99
+      InstanceType: t2.micro
+      KeyName: project1
+      SecurityGroupIds:
+        - !Ref ServerSecGrp
+      Tags:
+        - Key: Name
+          Value: !Sub Web Server of ${AWS::StackName} Stack
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #! /bin/bash
+            yum update -y
+            yum instal httpd -y
+            cd /var/www/html/
+            wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/index.html
+            wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
+            wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
+            wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
+            systemctl start httpd
+            systemctl enable httpd
 Outputs:
   KittensURL:
     Value: !Sub
