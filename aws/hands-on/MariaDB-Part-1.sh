@@ -5,8 +5,8 @@
 # AMI: Amazon Linux 2
 # Instance Type: t2.micro
 # Security Group
-#   - SSH           -----> 22    -----> Anywhere
-#   - MYSQL/Aurora  -----> 3306  -----> Anywhere
+#   - SSH           -----> 22    -----> Anywhere IMPORTANT (SecGrp should use SSH(22) to from anywhere )
+#   - MYSQL/Aurora  -----> 3306  -----> Anywhere IMPORTANT(SecGrp should use MYSQL(3306) to from anywhere )
 
 # Connect to EC2 instance with SSH.
 
