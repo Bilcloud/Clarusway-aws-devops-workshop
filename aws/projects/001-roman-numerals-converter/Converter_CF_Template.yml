@@ -19,7 +19,7 @@ Resources:
   Type: "AWS::EC2::SecurityGroup"
   Properties:
     GroupDescription: Allows SSH and HTTP #required
-    GroupName: Coverter_Sec_Group
+    GroupName: Converter_Sec_Group
     SecurityGroupIngress:
     - IpProtocol: tcp
       FromPort: "80"
@@ -32,7 +32,7 @@ Resources:
  WebServerInstance:
   Type: "AWS::EC2::Instance"
   Properties:
-    ImageId: ami-0c94855ba95c71c99
+    ImageId: ami-0947d2ba12ee1ff75
     InstanceType: t2.micro
     KeyName: !Ref ConverterKey
     SecurityGroupIds:
@@ -55,11 +55,11 @@ Resources:
            
            mkdir templates
            cd templates 
-           sudo wget https://raw.githubusercontent.com/charliefalcon/aws-devops-workshop/master/aws/projects/002-Roman-Numerals-Converter/templates/index.html
-           sudo wget https://raw.githubusercontent.com/charliefalcon/aws-devops-workshop/master/aws/projects/002-Roman-Numerals-Converter/templates/result.html
+           sudo wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/001-roman-numerals-converter/templates/index.html
+           sudo wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/001-roman-numerals-converter/templates/result.html
            
            cd ..
-           sudo wget https://raw.githubusercontent.com/charliefalcon/aws-devops-workshop/master/aws/projects/002-Roman-Numerals-Converter/converter_app.py
+           sudo wget https://raw.githubusercontent.com/Bilcloud/clarusway-aws-devops-workshop/master/aws/projects/001-roman-numerals-converter/converter_app.py
 
            python3 converter_app.py
 
