@@ -10,7 +10,7 @@ db_endpoint = open("/home/ec2-user/dbserver.endpoint", 'r', encoding='UTF-8')
 # Configure mysql database
 app.config['MYSQL_DATABASE_HOST'] = db_endpoint.readline().strip()
 app.config['MYSQL_DATABASE_USER'] = 'admin'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'clarusway-1'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'Bulent_1'
 app.config['MYSQL_DATABASE_DB'] = 'phonebook'
 app.config['MYSQL_DATABASE_PORT'] = 3306
 db_endpoint.close()
@@ -127,7 +127,7 @@ def find_records():
         persons = find_persons(keyword)
         return render_template('index.html', persons=persons, keyword=keyword, show_result=True, developer_name='Student_Name')
     else:
-        return render_template('index.html', show_result=False, developer_name='Student_Name')
+        return render_template('index.html', show_result=False, developer_name='Bilyan')
 
 
 # Write a function named `add_record` which inserts new record to the database using `GET` and `POST` methods,
